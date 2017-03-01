@@ -28,6 +28,11 @@ const Sidebar = props => (
           <Icon type="home" /><span className="nav-text">首 页</span>
         </IndexLink>
       </Menu.Item>
+      <Menu.Item key="sportsman">
+        <Link to="/sportsman">
+          <Icon type="home" /><span className="nav-text">运动员管理</span>
+        </Link>
+      </Menu.Item>
       <SubMenu
         key="user"
         title={
