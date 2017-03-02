@@ -10,12 +10,7 @@ class AddModal extends Component {
     this.state = {
       previewVisible: false,
       previewImage: '',
-      file_squat: [{
-        uid: -1,
-        name: 'xxx.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      }],
+      file_squat: [],
       file_step: [],
       file_arrow: [],
       file_shoulder: [],
