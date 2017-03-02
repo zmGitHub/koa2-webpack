@@ -67,7 +67,7 @@ class Sportsman extends Component {
                 <Link to={'/sportsman/data'}>训练</Link>
               </Menu.Item>
               <Menu.Item key="video">
-                <Link to={'/sportsman/data'}>视频</Link>
+                <Link to={'/sportsman/video'}>视频</Link>
               </Menu.Item>
               <Menu.Item key="experience">
                 <Link to={'/sportsman/data'}>经历</Link>
