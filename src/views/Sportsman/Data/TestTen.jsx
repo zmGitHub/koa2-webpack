@@ -51,40 +51,43 @@ class Test extends Component {
     );
     return (
       <Col span={24}>
-        <Col span={24}>
-          <Card title="测试指标" className="data-body-data" bordered extra={edit()}>
+        <Col span={12} className="margin-top-20">
+          <Radar />
+        </Col>
+        <Col span={12}>
+          <Card title="十项指标" className="data-body-data" bordered extra={edit()}>
             <Row gutter={16} className="data-body-data-row">
               <Form
                 onSubmit={this.handleSubmit}
               >
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('心肺能力：', 'heart', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('速度：', 'speed', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('耐力：', 'endurance', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('协调性：', 'harmonize', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('功率：', 'powerRate', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('平衡能力：', 'balance', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('力量：', 'force', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('敏捷能力：', 'agility', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('柔韧性：', 'suppleness', 23)}
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   {isShow('身体控制能力：', 'control', 23)}
                 </Col>
                 {
@@ -102,10 +105,6 @@ class Test extends Component {
                 }
               </Form>
             </Row>
-            <Col className="panel-block-hr" span={24}><hr /></Col>
-            <Col span={24} className="margin-top-20">
-              <Radar />
-            </Col>
           </Card>
         </Col>
       </Col>
