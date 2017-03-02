@@ -56,6 +56,7 @@ class Sportsman extends Component {
               onClick={this.handleClick}
               selectedKeys={[this.state.current]}
               mode="horizontal"
+              className="defined-menu-style"
             >
               <Menu.Item key="data">
                 <Link to={'/sportsman'}>数据</Link>

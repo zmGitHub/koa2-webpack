@@ -5,14 +5,20 @@ import Echarts from 'components/Echarts';
 const EachrtInit = (props) => {
   // const { data } = this.props;
   const option = {
-    tooltip: {},
+    tooltip: {
+      show: false,
+    },
+    grid: {
+      top: '4%',
+    },
     legend: {
       data: ['上次测试', '本次测试'],
       left: 'left',
-    },
-    grid: {
-      top: 80,
-      bottom: '4%',
+      top: '-5px',
+      textStyle: {
+        color: '#333',
+        fontSize: '10px',
+      },
     },
     radar: {
         // shape: 'circle',
@@ -37,15 +43,33 @@ const EachrtInit = (props) => {
           show: true,
         },
       },
+      itemStyle: {
+        normal: {
+              // color: 各异,
+          lineStyle: {
+            width: 2,
+          },
+        },
+      },
         // areaStyle: {normal: {}},
       data: [
         {
           value: [2, 4, 1, 5, 7, 5, 5, 8, 4, 9],
           name: '上次测试',
+          lineStyle: {
+            normal: {
+              type: 'dashed',
+            },
+          },
         },
         {
           value: [2, 4, 5, 3, 6, 7, 8, 3, 9, 10],
           name: '本次测试',
+          lineStyle: {
+            normal: {
+              type: 'dashed',
+            },
+          },
         },
       ],
     }],

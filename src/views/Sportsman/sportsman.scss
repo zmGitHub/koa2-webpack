@@ -1,9 +1,23 @@
 $maincolor: #3dca99;
+$color666: #666;
 $hr: #f5f5f5;
+.defined-menu-style{
+  .ant-menu-item:hover{
+    border-bottom: 2px solid $maincolor !important;
+  }
+  .ant-menu-item-selected{
+    border-bottom: 2px solid $maincolor !important;
+  }
+}
+
 .panel-block-title{
   margin: 10px 0px;
   padding-left: 8px;
   position: relative;
+  .panel-block-title-sub{
+    font-size: 12px;
+    color: $color666;
+  }
   &:before{
     content: '';
     position: absolute;

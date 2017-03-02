@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Form, Card, Upload, message, Icon, Input, Table, Row, Col, Button, DatePicker, Select } from 'antd';
+import { Form, Upload, message, Icon, Row, Col } from 'antd';
 import './data.scss';
 import BodyBase from './BodyBase';
 import Test from './TestTen';
+import Fms from './Fms';
+
 
 const beforeUpload = (file) => {
   const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
@@ -16,27 +18,33 @@ const beforeUpload = (file) => {
   }
   return isJPG && isLt4M;
 };
-
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
-
 class Data extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      modalVisible: false,
     };
     this.bodySubmit = this.bodySubmit.bind(this);
     this.testSubmit = this.testSubmit.bind(this);
+    this.newModal = this.newModal.bind(this);
+    this.setModalVisible = this.setModalVisible.bind(this);
   }
   componentWillMount() {
   }
-  handleChange(info) {
-    if (info.file.status === 'done') {
-      getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
-    }
+  // 新增弹出
+  setModalVisible() {
+    this.setState({
+      modalVisible: false,
+    });
+  }
+  newModal() {
+    this.setState({
+      modalVisible: true,
+    });
+  }
+  // 新增FMS数据
+  postModal(data) {
+    console.log('data', data);
   }
   // 身体指标
   bodySubmit(e) {
@@ -46,9 +54,20 @@ class Data extends Component {
   testSubmit(e) {
     console.log(e);
   }
+  // 图片上传
+  handleChange(info) {
+    const getBase64 = (img, callback) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => callback(reader.result));
+      reader.readAsDataURL(img);
+    };
+    if (info.file.status === 'done') {
+      getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
+    }
+  }
   render() {
-    const imageUrl = this.state.imageUrl;
-    const { bodybase, form } = this.props;
+    const { imageUrl, modalVisible } = this.state;
+    const { bodybase } = this.props;
     return (
       <Row gutter={16}>
         <Col span={24}>
@@ -133,12 +152,15 @@ class Data extends Component {
         <Col span={24}>
           <Test key="testTen" testSubmit={this.testSubmit} data={bodybase} />
         </Col>
+        <Col span={24}>
+          <Fms modalVisible={modalVisible} setModalVisible={this.setModalVisible} postModal={this.postModal} newModal={this.newModal} />
+        </Col>
       </Row>
     );
   }
 }
 Data.propTypes = {
-  form: PropTypes.object,
+  bodybase: PropTypes.object,
 };
 
 Data.defaultProps = {
