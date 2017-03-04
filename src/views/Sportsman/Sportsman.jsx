@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Form, Card, Icon, Menu, Input, Table, Row, Col, Button, DatePicker, Select } from 'antd';
-
+import BaseInfo from './BaseInfo';
 import './sportsman.scss';
 
 
@@ -14,10 +14,34 @@ class Sportsman extends Component {
     super(props);
     this.state = {
       current: 'data',
+      edit: false,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.editBaseInfo = this.editBaseInfo.bind(this);
+    this.cancel = this.cancel.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentWillMount() {
+    const { location } = this.props;
+    const pathname = location.pathname;
+    const res = pathname.split('/').pop();
+    switch (res) {
+      case 'power':
+        this.setState({ current: 'power' });
+        break;
+      case 'train':
+        this.setState({ current: 'train' });
+        break;
+      case 'video':
+        this.setState({ current: 'video' });
+        break;
+      case 'experience':
+        this.setState({ current: 'experience' });
+        break;
+      default:
+        this.setState({ current: 'data' });
+        break;
+    }
   }
   handleClick(e) {
     console.log('click ', e);
@@ -28,26 +52,40 @@ class Sportsman extends Component {
   callback(e) {
     console.log(e);
   }
+  editBaseInfo(e) {
+    e.preventDefault();
+    this.setState({
+      edit: true,
+    });
+    console.log('edit', this.state.edit);
+  }
+  // 基础信息提交
+  handleSubmit(e) {
+    e.preventDefault();
+    const { form } = this.props;
+    const res = form.getFieldsValue();
+    console.log(res);
+  }
+  // 基础信息取消提交
+  cancel() {
+    this.setState({
+      edit: false,
+    });
+  }
   render() {
-    const { children } = this.props;
-    const edit = () => (
+    const { children, form } = this.props;
+    const id = 23;
+    const editIcon = () => (
       <a href="" onClick={this.editBaseInfo}><Icon type="edit" /></a>
     );
+    const { edit } = this.state;
     return (
       <Row gutter={16}>
         <Col span={6}>
-          <Card className="baseinfo-card" title="基础信息" extra={edit()}>
-            <p><img src="./img/head.png" alt="" /></p>
-            <p className="text-center">詹姆斯·哈登</p>
-            <p className="text-center"><span>1989-8-26   男</span></p>
-            <hr />
-            <p><span>体重：</span> <span>104kg</span></p>
-            <p><span>身高：</span> <span>198cm</span></p>
-            <p><span>学校：</span> <span>圣玛利亚高中</span></p>
-            <p><span>运动项目：</span> <span>篮球 足球</span></p>
-            <p><span>位置（类型）：</span> <span>大前锋、中锋、组织后卫</span></p>
-            <p><span>特长：</span> <span>篮球、组织能力、谈判能力</span></p>
-            <p><span>标签：</span> <span className="sportsman-label"><span>标签一</span><span>标签二</span></span></p>
+          <Card className="baseinfo-card" title="基础信息" extra={editIcon()}>
+            <Form onSubmit={this.handleSubmit}>
+              <BaseInfo edit={edit} form={form} cancel={this.cancel} />
+            </Form>
           </Card>
         </Col>
         <Col span={18}>
@@ -59,13 +97,13 @@ class Sportsman extends Component {
               className="defined-menu-style"
             >
               <Menu.Item key="data">
-                <Link to={'/sportsman'}>数据</Link>
+                <Link to={`/sportsman/${id}`}>数据</Link>
               </Menu.Item>
               <Menu.Item key="power">
-                <Link to={'/sportsman/power'}>能力</Link>
+                <Link to={`/sportsman/${id}/power`}>能力</Link>
               </Menu.Item>
-              <Menu.Item key="practice">
-                <Link to={'/sportsman/data'}>训练</Link>
+              <Menu.Item key="train">
+                <Link to={`/sportsman/${id}/train`}>训练</Link>
               </Menu.Item>
               <Menu.Item key="video">
                 <Link to={'/sportsman/video'}>视频</Link>
@@ -85,6 +123,8 @@ class Sportsman extends Component {
 }
 Sportsman.propTypes = {
   children: PropTypes.element.isRequired,
+  form: PropTypes.object,
+  location: PropTypes.object,
 };
 
 Sportsman.defaultProps = {

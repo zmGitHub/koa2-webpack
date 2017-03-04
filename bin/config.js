@@ -56,8 +56,8 @@ const CompilerConfig = {
     proxy: {
       enabled: true,
       options: {
-        host: 'http://127.0.0.1:9999',
-        match: /^\/api\/.*/,
+        host: 'http://112.74.37.39',
+        match: /^\/upload\/.*/,
       },
     },
   }),

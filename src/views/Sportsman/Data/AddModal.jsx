@@ -10,18 +10,26 @@ class AddModal extends Component {
     this.state = {
       previewVisible: false,
       previewImage: '',
-      file_squat: [],
-      file_step: [],
-      file_arrow: [],
-      file_shoulder: [],
-      file_leg: [],
-      file_pushup: [],
-      file_rotate: [],
+      squat_filelist: [
+        {
+          uid: -1,
+          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+      ],
+      step_filelist: [],
+      arrow_filelist: [],
+      shoulder_filelist: [],
+      leg_filelist: [],
+      pushup_filelist: [],
+      rotate_filelist: [],
     };
     this.handleCancel = this.handleCancel.bind(this);
     this.handlePreview = this.handlePreview.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitFms = this.submitFms.bind(this);
+  }
+  componentWillMount() {
+
   }
   handleCancel() {
     this.setState({ previewVisible: false });
@@ -35,6 +43,22 @@ class AddModal extends Component {
   }
 
   handleChange(e, typeName) {
+    console.log(e);
+    let fileList = e.fileList;
+    fileList = fileList.slice(-2);
+    fileList = fileList.map((file) => {
+      if (file.response) {
+        // console.log(file.response);
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    // fileList = fileList.filter((file) => {
+    //   if (file.response) {
+    //     return file.response.status === 'success';
+    //   }
+    //   return true;
+    // });
     this.setState({ [typeName]: e.fileList });
   }
   submitFms() {
@@ -79,7 +103,7 @@ class AddModal extends Component {
           return (
             <FormItem {...formItemLayout} label="">
               {getFieldDecorator(fileListName)(
-                <Input placeholder="" />
+                <Input type="textarea" placeholder="" />
               )}
             </FormItem>
           );
@@ -96,15 +120,16 @@ class AddModal extends Component {
               <div className="ant-upload-text" />
             </div>
           );
-          const fileListName = `file_${param.type}`;
+          const fileListName = `${param.type}_filelist`;
           const fileList = this.state[fileListName];
           const { previewVisible, previewImage } = this.state;
           return (
             <div className="clearfix">
               <Upload
-                action="/upload.do"
+                action="http://112.74.37.39/upload"
                 listType="picture-card"
                 fileList={fileList}
+                accept="image"
                 onPreview={this.handlePreview}
                 onChange={e => this.handleChange(e, fileListName)}
                 className="defined-updete-style"
@@ -131,15 +156,18 @@ class AddModal extends Component {
     dataSource.forEach((item, index) => {
       item.projects = project[index];
     });
+    const { modalVisible, setModalVisible, modalKey } = this.props;
+    console.log('modalKey', modalKey);
     return (
       <Modal
+        key={`modalKey${modalKey}`}
         maskClosable={false}
         title="新增FMS数据"
         style={{ top: 20 }}
         width="800px"
-        visible={this.props.modalVisible}
+        visible={modalVisible}
         onOk={this.submitFms}
-        onCancel={this.props.setModalVisible}
+        onCancel={setModalVisible}
       >
         <Table
           columns={columns}
@@ -158,6 +186,7 @@ AddModal.propTypes = {
   setModalVisible: PropTypes.func,
   postModal: PropTypes.func,
   form: PropTypes.object,
+  modalKey: PropTypes.number,
 };
 AddModal = Form.create()(AddModal);
 

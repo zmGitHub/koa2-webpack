@@ -48,7 +48,7 @@ const FmsTable = (props) => {
   ];
   return (
     <Col span={24}>
-      <AddModal modalVisible={props.modalVisible} setModalVisible={props.setModalVisible} postModal={props.postModal} />
+      <AddModal modalVisible={props.modalVisible} modalKey={props.modalKey} setModalVisible={props.setModalVisible} postModal={props.postModal} />
       <Col span={12}>
         <h2 className="panel-block-title">FMS<span className="panel-block-title-sub">（功能性运动测试）</span></h2>
       </Col>
@@ -115,10 +115,11 @@ const FmsTable = (props) => {
   );
 };
 FmsTable.propTypes = {
-  modalVisible: PropTypes.func,
+  modalVisible: PropTypes.boolean,
   setModalVisible: PropTypes.func,
   postModal: PropTypes.func,
   newModal: PropTypes.func,
+  modalKey: PropTypes.number,
 };
 
 export default FmsTable;

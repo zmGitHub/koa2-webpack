@@ -29,7 +29,7 @@ const Sidebar = props => (
         </IndexLink>
       </Menu.Item>
       <Menu.Item key="sportsman">
-        <Link to="/sportsman">
+        <Link to="/sportsman/23">
           <Icon type="home" /><span className="nav-text">运动员管理</span>
         </Link>
       </Menu.Item>

@@ -23,6 +23,7 @@ class Data extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      modalKey: 1,
     };
     this.bodySubmit = this.bodySubmit.bind(this);
     this.testSubmit = this.testSubmit.bind(this);
@@ -40,6 +41,7 @@ class Data extends Component {
   newModal() {
     this.setState({
       modalVisible: true,
+      modalKey: this.state.modalKey + 1,
     });
   }
   // 新增FMS数据
@@ -66,7 +68,7 @@ class Data extends Component {
     }
   }
   render() {
-    const { imageUrl, modalVisible } = this.state;
+    const { imageUrl, modalVisible, modalKey } = this.state;
     const { bodybase } = this.props;
     return (
       <Row gutter={16}>
@@ -95,6 +97,7 @@ class Data extends Component {
           <Upload
             className="avatar-uploader"
             name="avatar"
+            method="post"
             showUploadList={false}
             action="http://112.74.37.39/upload"
             beforeUpload={beforeUpload}
@@ -153,7 +156,7 @@ class Data extends Component {
           <Test key="testTen" testSubmit={this.testSubmit} data={bodybase} />
         </Col>
         <Col span={24}>
-          <Fms modalVisible={modalVisible} setModalVisible={this.setModalVisible} postModal={this.postModal} newModal={this.newModal} />
+          <Fms modalVisible={modalVisible} modalKey={modalKey} setModalVisible={this.setModalVisible} postModal={this.postModal} newModal={this.newModal} />
         </Col>
       </Row>
     );
@@ -161,6 +164,7 @@ class Data extends Component {
 }
 Data.propTypes = {
   bodybase: PropTypes.object,
+  form: PropTypes.object,
 };
 
 Data.defaultProps = {
