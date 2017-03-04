@@ -1,0 +1,38 @@
+$layout-header: 72px;
+$layout-menue-height: 70px;
+$layout-padding: 0 50px;
+
+.sport-layout {
+  >.ant-layout-header {
+    height: $layout-header;
+    line-height: $layout-header;
+    background-color: #333333;
+    >.layout-logo {
+      width: 180px;
+      float: left;
+      margin: 10px 40px 0 0;
+      >p {
+        color: #fff;
+        line-height: normal;
+        &:first-child {
+          font-size: 24px;
+        }
+        &:last-child {
+          text-align: center;
+          font-size: 16px;
+        }
+      }
+    }
+    >.ant-menu {
+      display: inline-block;
+      color: #fff;
+      font-size: 14px;
+      line-height: $layout-menue-height !important;
+      background-color: transparent !important;
+      border-bottom: none;
+    }
+  }
+  >.ant-layout-content {
+    padding: $layout-padding;
+  }
+}

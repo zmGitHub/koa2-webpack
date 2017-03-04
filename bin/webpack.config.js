@@ -8,6 +8,7 @@ import OpenBrowserWebpackPlugin from 'open-browser-webpack-plugin';
 import _debug from 'debug';
 
 import config from './config';
+import pkg from '../package.json';
 
 const debug = _debug('app:webpack.config');
 const paths = config.utils_paths;
@@ -18,6 +19,7 @@ const {
 } = config.globals;
 debug('👻 初始化 webpack 默认配置...');
 const APP_ENTRY = ['babel-polyfill', 'eventsource-polyfill', paths.src('main.js')];
+
 const webpackConfig = {
   name: 'client',
   target: 'web', // 打包成什么类型
@@ -70,7 +72,7 @@ const webpackConfig = {
         'style',
         BASE_CSS_LOADER,
         'postcss',
-        'less?sourceMap',
+        `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(pkg.theme)}}`,
       ],
     }, {
       test: /\.css$/,
@@ -110,6 +112,7 @@ const webpackConfig = {
   plugins: [
     new HappyPack({
       id: 'babel',
+      threads: 4,
       loaders: [{
         path: paths.nodeModules('babel-loader/lib/index.js'),
         query: `?${JSON.stringify(config.babelConfig)}`,

@@ -133,7 +133,7 @@ class Data extends Component {
             className="avatar-uploader"
             name="avatar"
             showUploadList={false}
-            action="http://112.74.37.39/upload"
+            action="/upload"
             beforeUpload={beforeUpload}
             onChange={this.handleChange}
           >

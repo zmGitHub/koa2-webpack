@@ -57,7 +57,7 @@ const CompilerConfig = {
       enabled: true,
       options: {
         host: 'http://112.74.37.39',
-        match: /^\/upload\/.*/,
+        match: /^\/upload\//,
       },
     },
   }),
